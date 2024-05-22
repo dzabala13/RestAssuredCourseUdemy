@@ -9,13 +9,13 @@ import static io.restassured.RestAssured.given;
 public class BaseTest {
 
     // this class help us to configurate our body request and reuse it in several parts of our project
-    protected String bookingObject (){
+    protected String bookingObject (String firstname, String lastname, int totalprice, boolean depositpaid){
 
         JSONObject body = new JSONObject();
-        body.put("firstname","Daniel");
-        body.put("lastname","Brown");
-        body.put("totalprice",111);
-        body.put("depositpaid",true);
+        body.put("firstname",firstname);
+        body.put("lastname",lastname);
+        body.put("totalprice",totalprice);
+        body.put("depositpaid",depositpaid);
 
         JSONObject bookingdates = new JSONObject();
         bookingdates.put("checkin","2018-01-01");
@@ -49,7 +49,7 @@ public class BaseTest {
                 //this line is just necesary if you need to see how the request is send.
                 //    .log().all()
                 .contentType(ContentType.JSON)
-                .body(bookingObject())
+                .body(bookingObject( "Daniel",  "Brown",  111,  true))
                 .post("https://restful-booker.herokuapp.com/booking");
 
         response.prettyPrint();
@@ -59,5 +59,26 @@ public class BaseTest {
                 .statusCode(200);
 
         return response;
+    }
+
+    public String generateToken(){
+
+        JSONObject body = new JSONObject();
+        body.put("username" , "admin");
+        body.put("password" , "password123");
+
+        Response response = given().
+                contentType(ContentType.JSON).
+                when().
+                //log().all().
+                body(body.toString()).
+                post("https://restful-booker.herokuapp.com/auth");
+
+        response
+                .then()
+                .statusCode(200);
+
+        return response.jsonPath().getJsonObject("token");
+
     }
 }
