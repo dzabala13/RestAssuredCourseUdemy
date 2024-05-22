@@ -11,33 +11,13 @@ import static io.restassured.RestAssured.given;
 public class UpdateBooking extends BaseTest{
     @Test
     public void updateBooking(){
-        String bearerToken= generateToken();
-
-        String bookindID = createBooking().jsonPath().getJsonObject("bookingid").toString();
-        String bodyForUpdating =  bookingObject ("DanielUpdate", "zabala", 9999, false);
-
-/*        curl -X PUT \
-        https://restful-booker.herokuapp.com/booking/1 \
-        -H 'Content-Type: application/json' \
-        -H 'Accept: application/json' \
-        -H 'Cookie: token=abc123' \
-        -d '{
-        "firstname" : "James",
-                "lastname" : "Brown",
-                "totalprice" : 111,
-                "depositpaid" : true,
-                "bookingdates" : {
-            "checkin" : "2018-01-01",
-                    "checkout" : "2019-01-01"
-        },
-        "additionalneeds" : "Breakfast"*/
 
         Response response= given()
                 .contentType(ContentType.JSON)
-                .header("Cookie","token="+bearerToken)
+                .header("Cookie","token="+generateToken())
                 .when()
-                .body(bodyForUpdating)
-                .put("https://restful-booker.herokuapp.com/booking/"+bookindID);
+                .body( bookingObject ("DanielUpdate", "zabala", 9999, false))
+                .put("https://restful-booker.herokuapp.com/booking/"+createBookingId());
 
         response.prettyPrint();
 

@@ -13,14 +13,10 @@ public class getBookingsByIds extends BaseTest {
     @Test
     public void getBookingsByIdsTest(){
 
-        // First we create a new booking and after that we take the id's booking.
-        // all this reusing the process of create a booking already declarated in our BaseTest Class, which is inherited in this class
-        Response newBooking = createBooking();
-        int idNewBooking = newBooking.jsonPath().getJsonObject("bookingid");
-
         Response response =  given()
-                .when().
-                    get("https://restful-booker.herokuapp.com/booking/"+idNewBooking);
+                                    .when()
+                                    .get("https://restful-booker.herokuapp.com/booking/"+createBookingId());
+
         response.then()
                 .statusCode(200);
 

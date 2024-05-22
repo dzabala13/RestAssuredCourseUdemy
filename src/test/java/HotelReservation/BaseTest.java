@@ -61,7 +61,12 @@ public class BaseTest {
         return response;
     }
 
-    public String generateToken(){
+    protected int createBookingId(){
+       return createBooking().jsonPath().getJsonObject("bookingid");
+    }
+
+
+    protected String generateToken(){
 
         JSONObject body = new JSONObject();
         body.put("username" , "admin");

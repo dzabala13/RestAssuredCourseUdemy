@@ -12,10 +12,6 @@ public class CreateBokingTest  extends BaseTest{
 
     @Test
     public void createBookingTest(){
-
-
-
-
         Response response = createBooking();
 
         Assertions.assertEquals("Daniel", response.jsonPath().getJsonObject("booking.firstname"));
