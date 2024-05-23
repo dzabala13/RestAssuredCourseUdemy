@@ -1,6 +1,5 @@
-package HotelReservation;
+package HotelReservation.Models;
 
-import io.restassured.internal.common.assertion.Assertion;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

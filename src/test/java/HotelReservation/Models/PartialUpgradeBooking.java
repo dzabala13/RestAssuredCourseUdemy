@@ -1,4 +1,4 @@
-package HotelReservation;
+package HotelReservation.Models;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
 
 public class PartialUpgradeBooking extends  BaseTest {
 

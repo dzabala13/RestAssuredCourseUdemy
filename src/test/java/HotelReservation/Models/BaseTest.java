@@ -1,4 +1,4 @@
-package HotelReservation;
+package HotelReservation.Models;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
