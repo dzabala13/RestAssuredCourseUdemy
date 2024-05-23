@@ -47,7 +47,7 @@ public class BaseTest {
         Response response = given()
                 .when()
                 //this line is just necesary if you need to see how the request is send.
-                //    .log().all()
+                    .log().all()
                 .contentType(ContentType.JSON)
                 .body(bookingObject( "Daniel",  "Brown",  111,  true))
                 .post("https://restful-booker.herokuapp.com/booking");
