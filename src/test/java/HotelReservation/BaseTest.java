@@ -1,14 +1,35 @@
 package HotelReservation;
 
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.json.JSONObject;
+import org.junit.jupiter.api.BeforeEach;
+
+import java.util.Arrays;
 
 import static io.restassured.RestAssured.given;
 
+// this class help us to configurate our body request and reuse it in several parts of our project
 public class BaseTest {
+    RequestSpecification spec;
+    // when we specify the general configuration for all project with the method sepUp, it has the general configuration
+    //however it is importan take into account that it should be give like argument into the step give(spec) in each
+    // request that we send, that is the reason that we have declared spec like a global variable that it will inherit
+    // to another class.
+    // beacuse
+    @BeforeEach
+    public void setUp(){
+         spec = new RequestSpecBuilder()
+                .setBaseUri("https://restful-booker.herokuapp.com")
+                 // with this part we dont need to use the comand to see logs in each request
+                .addFilters(Arrays.asList(new RequestLoggingFilter(),new ResponseLoggingFilter()))
+                 .build();
+    }
 
-    // this class help us to configurate our body request and reuse it in several parts of our project
     protected String bookingObject (String firstname, String lastname, int totalprice, boolean depositpaid){
 
         JSONObject body = new JSONObject();
@@ -41,18 +62,14 @@ public class BaseTest {
                 "checkout" : "2019-01-01"
     },
             "additionalneeds" : "Breakfast"*/
-
         // Here set up the configuration like contenType and the body request
         // It is so importan validate your body request because it can be cause faults in your request
-        Response response = given()
+        Response response = given(spec)
                 .when()
                 //this line is just necesary if you need to see how the request is send.
-                    .log().all()
                 .contentType(ContentType.JSON)
                 .body(bookingObject( "Daniel",  "Brown",  111,  true))
-                .post("https://restful-booker.herokuapp.com/booking");
-
-        response.prettyPrint();
+                .post("/booking");
 
         response
                 .then()
@@ -72,12 +89,11 @@ public class BaseTest {
         body.put("username" , "admin");
         body.put("password" , "password123");
 
-        Response response = given().
+        Response response = given(spec).
                 contentType(ContentType.JSON).
                 when().
-                //log().all().
                 body(body.toString()).
-                post("https://restful-booker.herokuapp.com/auth");
+                post("/auth");
 
         response
                 .then()

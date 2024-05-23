@@ -13,15 +13,12 @@ public class getBookingsByIds extends BaseTest {
     @Test
     public void getBookingsByIdsTest(){
 
-        Response response =  given()
+        Response response =  given(spec)
                                     .when()
-                                    .get("https://restful-booker.herokuapp.com/booking/"+createBookingId());
+                                    .get("/booking/"+createBookingId());
 
         response.then()
                 .statusCode(200);
-
-        // this is a way fancy to print the response body of the response
-        response.prettyPrint();
 
         String firstname = response.jsonPath().getJsonObject("firstname");
         String lastname = response.jsonPath().getJsonObject("lastname");

@@ -12,14 +12,12 @@ public class UpdateBooking extends BaseTest{
     @Test
     public void updateBooking(){
 
-        Response response= given()
+        Response response= given(spec)
                 .contentType(ContentType.JSON)
                 .header("Cookie","token="+generateToken())
                 .when()
                 .body( bookingObject ("DanielUpdate", "zabala", 9999, false))
-                .put("https://restful-booker.herokuapp.com/booking/"+createBookingId());
-
-        response.prettyPrint();
+                .put("/booking/"+createBookingId());
 
         response
                 .then()

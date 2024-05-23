@@ -13,23 +13,19 @@ public class DeleteBooking extends BaseTest{
     public void deleteBooking(){
         int idBooking = createBookingId();
 
-       Response response=  given()
+       Response response=  given(spec)
                .header("Cookie","token="+generateToken())
                .contentType(ContentType.JSON)
                .when()
                .log().all()
-               .delete("https://restful-booker.herokuapp.com/booking/"+idBooking);
-
-        response.prettyPrint();
+               .delete("/booking/"+idBooking);
 
         response.then().statusCode(201);
 
         // that it is a plus, because we need to validete that the booking registred was deleted correctly
-        Response search =  given()
+        Response search =  given(spec)
                 .when()
                 .get("https://restful-booker.herokuapp.com/booking/"+idBooking);
-
-        search.prettyPrint();
 
         search.then()
                 .statusCode(404);
