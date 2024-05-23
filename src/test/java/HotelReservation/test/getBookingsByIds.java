@@ -1,4 +1,4 @@
-package HotelReservation.Models;
+package HotelReservation.test;
 
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
