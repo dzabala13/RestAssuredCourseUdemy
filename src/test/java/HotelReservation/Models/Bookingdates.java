@@ -11,6 +11,9 @@ public class Bookingdates {
         this.checkout = checkout;
     }
 
+    public Bookingdates(){
+    }
+
     // we need create all the methods get and set for all the variables because it will use for the library Jackson to
     // serialize and deserialize the objects
 

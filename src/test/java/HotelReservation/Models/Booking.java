@@ -21,6 +21,9 @@ public class Booking  {
         this.bookingdates = bookingdates;
         this.additionalneeds = additionalneeds;
     }
+    /*Here it is necesary to declarate contruc*/
+    public Booking() {
+    }
 
     public String getFirstname() {
         return firstname;

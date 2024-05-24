@@ -2,6 +2,7 @@ package HotelReservation.test;
 
 import HotelReservation.Models.Booking;
 import HotelReservation.Models.Bookingdates;
+import HotelReservation.Models.ResponseBooking;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
@@ -41,6 +42,21 @@ public class CreateBokingTest  extends BaseTest{
                 .post("/booking");
 
         response.then().statusCode(200);
+
+
+        /* in the deserialization first we need to make sure that all the models (class POJO) have
+        a empty constructor because the framework JAckson use them to deserializate, then we need to instantiate
+        the object with the following comand
+        */
+        ResponseBooking responseBooking = response.as(ResponseBooking.class);
+
+        System.out.println(responseBooking);
+
+        Assertions.assertEquals("Sally",responseBooking.getBooking().getFirstname());
+        Assertions.assertEquals("Brown",responseBooking.getBooking().getLastname());
+        Assertions.assertEquals(111,responseBooking.getBooking().getTotalprice());
+
+
 
 
 
