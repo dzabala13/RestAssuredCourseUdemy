@@ -52,6 +52,7 @@ public class CreateBokingTest  extends BaseTest{
 
         System.out.println(responseBooking);
 
+        // here already we can use the objet deserializated
         Assertions.assertEquals("Sally",responseBooking.getBooking().getFirstname());
         Assertions.assertEquals("Brown",responseBooking.getBooking().getLastname());
         Assertions.assertEquals(111,responseBooking.getBooking().getTotalprice());
